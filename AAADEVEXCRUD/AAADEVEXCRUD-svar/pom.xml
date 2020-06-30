@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>service</groupId>
 		<artifactId>AAADEVEXCRUD</artifactId>
-		<version>1.0.0.0.0</version>
+		<version>3.7.0.0.1</version>
 	</parent>
 	<artifactId>AAADEVEXCRUD-svar</artifactId>
 	<packaging>pom</packaging>
@@ -69,8 +69,8 @@
 							<artifactItems>
 								<artifactItem>
 									<groupId>com.avaya.collaboration.api</groupId>
-									<artifactId>avaya-aura-collaboration-api-3.4</artifactId>
-									<version>3.4.0.0.340003</version>
+									<artifactId>avaya-aura-collaboration-api-3.7</artifactId>
+									<version>3.7.0.0.370008</version>
 									<type>jar</type>
 									<overWrite>true</overWrite>
 									<outputDirectory>${project.build.directory}/tmp</outputDirectory>
@@ -191,13 +191,13 @@
 		<dependency>
 			<groupId>service</groupId>
 			<artifactId>AAADEVEXCRUD-ear</artifactId>
-			<version>1.0.0.0.0</version>
+			<version>3.7.0.0.1</version>
 			<type>ear</type>
 		</dependency>
 		<dependency>
 			<groupId>com.avaya.zephyr.zephyrCommon.xsds</groupId>
 			<artifactId>archive-xsd</artifactId>
-			<version>3.4.0.0.340003</version>			
+			<version>3.7.0.0.370008</version>			
 			<exclusions>
 				<exclusion>
 					<artifactId>smc-api</artifactId>

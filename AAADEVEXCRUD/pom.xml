@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>service</groupId>
   <artifactId>AAADEVEXCRUD</artifactId>
-  <version>1.0.0.0.0</version>
+  <version>3.7.0.0.1</version>
   <packaging>pom</packaging>
 
   <properties>
 	  <serviceName>AAADEVEXCRUD</serviceName>
-	  <serviceVersion>1.0.0.0.0</serviceVersion>
+	  <serviceVersion>3.7.0.0.5</serviceVersion>
   </properties>
 
   <modules>

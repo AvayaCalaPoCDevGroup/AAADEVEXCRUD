@@ -92,7 +92,7 @@
 	<xs:complexType name="alarmListType">
 		<xs:sequence>
 			<xs:element ref="organization" maxOccurs="1" minOccurs="0"></xs:element>
-			<xs:element ref="alarm" maxOccurs="50" minOccurs="0"></xs:element>
+			<xs:element ref="alarm" minOccurs="0" maxOccurs="unbounded"></xs:element>
 		</xs:sequence>
 	</xs:complexType>
 

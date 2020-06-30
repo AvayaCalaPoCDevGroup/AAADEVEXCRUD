@@ -39,14 +39,14 @@ import com.google.gson.JsonObject;
 public class Customer extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-    private final Logger logger;   
+    //private final Logger logger;   
     /**
      * @see HttpServlet#HttpServlet()
      */
     public Customer() 
     {
         super();
-        logger = Logger.getLogger(getClass());
+        //logger = Logger.getLogger(getClass());
     }
 
 	/**
@@ -62,7 +62,7 @@ public class Customer extends HttpServlet
 	        String url = "jdbc:postgresql://10.0.0.12:5432/postgres";
 	        Properties props = new Properties();
 	        props.setProperty("user", "postgres");
-	        props.setProperty("password", "postgres");
+	        props.setProperty("password", "admin");
 
 
 	        PrintWriter out = response.getWriter();
@@ -73,7 +73,7 @@ public class Customer extends HttpServlet
 	            Driver driver = (Driver) jdbcDriverClass.newInstance();
 	            DriverManager.registerDriver(driver);
 	        } catch (Exception e) {
-	        	logger.info("MyServlet: l-74 Error: "+e.getMessage());
+	        	//logger.info("MyServlet: l-74 Error: "+e.getMessage());
 	        	/*RESPUESSTA ERROR EN FORMATO JSON*/
 	        	JsonObject error = new JsonObject();
 	            error.addProperty("Status", "Error");
@@ -86,10 +86,10 @@ public class Customer extends HttpServlet
 	        /*LA VARIABLE CONN REALIZA LA CONEXION A LA BD*/
 			try {
 	            conn = DriverManager.getConnection(url, props);
-	            logger.info("MySwrvlet l-83: Conexión realizada a BD");
+	            //logger.info("MySwrvlet l-83: Conexión realizada a BD");
 
 			}catch (SQLException ex) {
-				logger.info("MyServlet: l-87 Error: "+ex.getMessage());
+				//logger.info("MyServlet: l-87 Error: "+ex.getMessage());
 		    	out.println(ex.getMessage());
 		        System.out.println(ex.getMessage());
 		    }
@@ -119,7 +119,7 @@ public class Customer extends HttpServlet
 		            stmt.close();
 		            rs.close();
 		        } catch (SQLException ex) {
-		        	logger.info("MyServlet: l-116 Error: "+ex.getMessage());
+		        	//logger.info("MyServlet: l-116 Error: "+ex.getMessage());
 		        	/*RESPUESSTA ERROR EN FORMATO JSON*/
 		        	JsonObject error = new JsonObject();
 		            error.addProperty("Status", "Error");
@@ -154,7 +154,7 @@ public class Customer extends HttpServlet
 	            stmt.close();
 	            rs.close();
 	        } catch (SQLException ex) {
-	        	logger.info("MyServlet: l-116 Error: "+ex.getMessage());
+	        	//logger.info("MyServlet: l-116 Error: "+ex.getMessage());
 	        	/*RESPUESSTA ERROR EN FORMATO JSON*/
 	        	JsonObject error = new JsonObject();
 	            error.addProperty("Status", "Error");
@@ -175,14 +175,14 @@ public class Customer extends HttpServlet
 //	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{	
-			logger.info("Ingresando al método POST");
+			//logger.info("Ingresando al método POST");
 			setAccessControlHeaders(response);
 
 			String JDBC_DRIVER = "org.postgresql.Driver";
 	        String url = "jdbc:postgresql://10.0.0.12:5432/postgres";
 	        Properties props = new Properties();
 	        props.setProperty("user", "postgres");
-	        props.setProperty("password", "postgres");
+	        props.setProperty("password", "admin");
 	        
 	        Driver driver = null;
 	        Connection conn = null;
@@ -196,7 +196,7 @@ public class Customer extends HttpServlet
 	            driver = (Driver) jdbcDriverClass.newInstance();
 	            DriverManager.registerDriver(driver);
 	        } catch (Exception e) {
-	        	logger.info("MyServlet: l-148 Error: "+e.getMessage());
+	        	//logger.info("MyServlet: l-148 Error: "+e.getMessage());
 	            e.printStackTrace();
 	            /*RESPUESSTA ERROR EN FORMATO JSON*/
 	            JsonObject error = new JsonObject();
@@ -208,9 +208,9 @@ public class Customer extends HttpServlet
 	        }
 	        try {
 	            conn = DriverManager.getConnection(url, props);
-	            logger.info("MyServlet: l-142 Conexión a base de datos completada");
+	            //logger.info("MyServlet: l-142 Conexión a base de datos completada");
 	        } catch (SQLException e) {
-	        	logger.info("MyServlet: l-159 Error: "+e.getMessage());
+	        	//logger.info("MyServlet: l-159 Error: "+e.getMessage());
 	        	/*RESPUESSTA ERROR EN FORMATO JSON*/
 	        	JsonObject error = new JsonObject();
 	            error.addProperty("Status", "Error");
@@ -225,7 +225,7 @@ public class Customer extends HttpServlet
 	        CustomerBean myBean = gson.fromJson(reader, CustomerBean.class);
             try (
                 Statement stmt = conn.createStatement();) {
-            	logger.info("MyServlet: l-165 Creando Statement");
+            	//logger.info("MyServlet: l-165 Creando Statement");
             	
                 /*ASIGNANDO VALORES INPUT A VARIABLES LOCALES*/
                 int accountnum = myBean.accountnum;
@@ -236,7 +236,7 @@ public class Customer extends HttpServlet
                 String preference = myBean.preference;
                 
                 
-                logger.info("MyServlet: l-173 Datos:   insert into customer (accountnum, email ,firstname,lastname, phone, preference) values (" + accountnum + ", '" + email + "' ,'" + firstname + "','" + lastname + "','" + phone + "', '" + preference + "' )");
+                //logger.info("MyServlet: l-173 Datos:   insert into customer (accountnum, email ,firstname,lastname, phone, preference) values (" + accountnum + ", '" + email + "' ,'" + firstname + "','" + lastname + "','" + phone + "', '" + preference + "' )");
                 /*STATEMENT*/
                 int affectedRows = stmt.executeUpdate("insert into customer (accountnum, email ,firstname,lastname, phone, preference) values (" + accountnum + ", '" + email + "' ,'" + firstname + "','" + lastname + "','" + phone + "', '" + preference + "' )");
                 if (affectedRows > 0) {
@@ -246,7 +246,7 @@ public class Customer extends HttpServlet
                             id = rs.getLong(1);
                         }
                     } catch (SQLException ex) {
-                    	logger.info("MyServlet: l-182 Error: "+ex.getMessage());
+                    	//logger.info("MyServlet: l-182 Error: "+ex.getMessage());
                     	/*RESPUESSTA ERROR EN FORMATO JSON*/
     		        	JsonObject error = new JsonObject();
     		            error.addProperty("Status", "Error");
@@ -256,7 +256,7 @@ public class Customer extends HttpServlet
     		            response.setContentType("application/json");
     		            response.setCharacterEncoding("UTF-8");
                     }
-                    logger.info("Numero de columnas insertadas: "+affectedRows);
+                    //logger.info("Numero de columnas insertadas: "+affectedRows);
                     /*RESPUESSTA OK EN FORMATO JSON*/
                     JsonObject ok = new JsonObject();
                     ok.addProperty("Status", "Ok");
@@ -268,7 +268,7 @@ public class Customer extends HttpServlet
 
                 conn.close();
             } catch (SQLException ex) {
-            	logger.info("MyServlet: l-194 Error: "+ex.getMessage());
+            	//logger.info("MyServlet: l-194 Error: "+ex.getMessage());
             	/*RESPUESSTA ERROR EN FORMATO JSON*/
 	        	JsonObject error = new JsonObject();
 	            error.addProperty("Status", "Error");
@@ -283,12 +283,12 @@ public class Customer extends HttpServlet
 	}
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		setAccessControlHeaders(response);
-		logger.info("Ingresando al método PUT");
+		//logger.info("Ingresando al método PUT");
 		String JDBC_DRIVER = "org.postgresql.Driver";
         String url = "jdbc:postgresql://10.0.0.12:5432/postgres";
         Properties props = new Properties();
         props.setProperty("user", "postgres");
-        props.setProperty("password", "postgres");
+        props.setProperty("password", "admin");
         
         Driver driver = null;
         Connection conn = null;
@@ -301,7 +301,7 @@ public class Customer extends HttpServlet
             driver = (Driver) jdbcDriverClass.newInstance();
             DriverManager.registerDriver(driver);
         } catch (Exception e) {
-        	logger.info("MyServlet: l-230 Error: "+e.getMessage());
+        	//logger.info("MyServlet: l-230 Error: "+e.getMessage());
             e.printStackTrace();
             /*RESPUESSTA ERROR EN FORMATO JSON*/
             JsonObject error = new JsonObject();
@@ -313,9 +313,9 @@ public class Customer extends HttpServlet
         }
         try {
             conn = DriverManager.getConnection(url, props);
-            logger.info("MyServlet: l-237 Conexión a base de datos completada");
+            //logger.info("MyServlet: l-237 Conexión a base de datos completada");
         } catch (SQLException e) {
-        	logger.info("MyServlet: l-241 Error: "+e.getMessage());
+        	//logger.info("MyServlet: l-241 Error: "+e.getMessage());
         	/*RESPUESSTA ERROR EN FORMATO JSON*/
             JsonObject error = new JsonObject();
             error.addProperty("Status", "Error");
@@ -328,7 +328,7 @@ public class Customer extends HttpServlet
         
         try (
             Statement stmt = conn.createStatement();) {
-        	logger.info("MyServlet: l-251 Creando Statement");
+        	//logger.info("MyServlet: l-251 Creando Statement");
         	/* OBTENIENDO JSON*/
             BufferedReader reader = request.getReader();
             Gson gson = new Gson();
@@ -349,7 +349,7 @@ public class Customer extends HttpServlet
                     + "', preference='" + preference
                     + "' WHERE accountnum = " + accountnum + ";");
             if (affectedRows > 0) {
-                logger.info("Numero de columnas insertadas: "+affectedRows);
+                //logger.info("Numero de columnas insertadas: "+affectedRows);
                 /*RESPUESSTA OK EN FORMATO JSON*/
                 JsonObject ok = new JsonObject();
                 ok.addProperty("Status", "Ok");
@@ -368,7 +368,7 @@ public class Customer extends HttpServlet
             }
             conn.close();
         } catch (Exception ex) {
-        	logger.info("MyServlet: l-285 Error: "+ex.getMessage());
+        	//logger.info("MyServlet: l-285 Error: "+ex.getMessage());
         	/*RESPUESSTA ERROR EN FORMATO JSON*/
             JsonObject error = new JsonObject();
             error.addProperty("Status", "Error");
@@ -384,13 +384,13 @@ public class Customer extends HttpServlet
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		setAccessControlHeaders(response);
-		logger.info("Ingresando al método DELETE");
+		//logger.info("Ingresando al método DELETE");
 		/*CONEXIÓN JDBC*/
 		String JDBC_DRIVER = "org.postgresql.Driver";
         String url = "jdbc:postgresql://10.0.0.12:5432/postgres";
         Properties props = new Properties();
         props.setProperty("user", "postgres");
-        props.setProperty("password", "postgres");
+        props.setProperty("password", "admin");
         
         Driver driver = null;
         Connection conn = null;
@@ -403,7 +403,7 @@ public class Customer extends HttpServlet
             driver = (Driver) jdbcDriverClass.newInstance();
             DriverManager.registerDriver(driver);
         } catch (Exception e) {
-        	logger.info("MyServlet: l-313 Error: "+e.getMessage());
+        	//logger.info("MyServlet: l-313 Error: "+e.getMessage());
             e.printStackTrace();
             JsonObject error = new JsonObject();
             error.addProperty("Status", "Error");
@@ -416,9 +416,9 @@ public class Customer extends HttpServlet
         try {
         	/*CONEXIÓN A BASE DE DATOS*/
             conn = DriverManager.getConnection(url, props);
-            logger.info("MyServlet: l-320 Conexión a base de datos completada");
+            //logger.info("MyServlet: l-320 Conexión a base de datos completada");
         } catch (SQLException e) {
-        	logger.info("MyServlet: l-324 Error: "+e.getMessage());
+        	//logger.info("MyServlet: l-324 Error: "+e.getMessage());
         	/*RESPUESSTA ERROR EN FORMATO JSON*/
             JsonObject error = new JsonObject();
             error.addProperty("Status", "Error");
@@ -429,7 +429,7 @@ public class Customer extends HttpServlet
         }
         
         try (Statement stmt = conn.createStatement();) {
-        	logger.info("MyServlet: l-334 Creando Statement");
+        	//logger.info("MyServlet: l-334 Creando Statement");
         	/* OBTENIENDO JSON*/
             BufferedReader reader = request.getReader();
             Gson gson = new Gson();
@@ -441,7 +441,7 @@ public class Customer extends HttpServlet
             int affectedRows = stmt.executeUpdate("DELETE FROM customer\n" +
                                                         "	WHERE accountnum = "+accountnum+";");
             if (affectedRows > 0)   {
-            logger.info("Numero de columnas insertadas: "+affectedRows);
+            //logger.info("Numero de columnas insertadas: "+affectedRows);
                 /*RESPUESSTA OK EN FORMATO JSON*/
                 JsonObject ok = new JsonObject();
                 ok.addProperty("Status", "Ok");
@@ -462,7 +462,7 @@ public class Customer extends HttpServlet
             }
                 
         } catch (Exception ex) {
-        	logger.info("MyServlet: l-358 Error: "+ex.getMessage());
+        	//logger.info("MyServlet: l-358 Error: "+ex.getMessage());
         	/*RESPUESSTA ERROR EN FORMATO JSON*/
             JsonObject error = new JsonObject();
             error.addProperty("Status", "Error");

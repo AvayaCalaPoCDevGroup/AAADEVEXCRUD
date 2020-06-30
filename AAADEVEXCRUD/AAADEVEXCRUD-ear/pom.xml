@@ -4,7 +4,7 @@
   <parent>
         <artifactId>AAADEVEXCRUD</artifactId>
         <groupId>service</groupId>
-        <version>1.0.0.0.0</version>
+        <version>3.7.0.0.1</version>
     </parent>
 
   <artifactId>AAADEVEXCRUD-ear</artifactId>
@@ -50,7 +50,7 @@
   	<dependency>
   		<groupId>service</groupId>
   		<artifactId>AAADEVEXCRUD-war</artifactId>
-  		<version>1.0.0.0.0</version>
+  		<version>3.7.0.0.1</version>
   		<type>war</type>
   	</dependency>
   </dependencies>

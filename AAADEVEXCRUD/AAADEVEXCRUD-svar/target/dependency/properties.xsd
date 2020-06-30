@@ -69,7 +69,7 @@
     </xs:complexType>
 	<xs:complexType name="redirect_type">
 		<xs:sequence>
-			<xs:element name="port" maxOccurs="1" type="xs:int" />
+			<xs:element name="port" minOccurs="0" maxOccurs="1" type="xs:int" />
 			<xs:element name="locationContext" maxOccurs="1" type="xs:string" />
 			<xs:element name="redirectContext" maxOccurs="1" type="xs:string" /> 
 		</xs:sequence>
@@ -151,6 +151,14 @@
 			<xs:element name="schema-major" minOccurs="0" type="xs:int" />
 			<xs:element name="schema-minor" minOccurs="0" type="xs:int" />
 			<xs:element name="schema-revision" minOccurs="0" type="xs:int" />
+			<xs:element name="socket-timeout" minOccurs="0" >
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="5" />
+						<xs:maxInclusive value="60" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 
@@ -239,7 +247,8 @@
 			</xs:element>
 			<xs:element name="valueChoices" minOccurs="0" type="xs:string" />
 			<xs:element name="encrypted" minOccurs="0" type="xs:boolean" />
-			<xs:choice>
+			<!-- validation tag to be used with STRING types only , table tag is not supported-->
+			<xs:choice minOccurs="0" maxOccurs="1">
 				<xs:element name="validation" type="validation_type" />
 				<!-- the table element is not supported, please do not use -->
 				<xs:element name="table" type="table_type" />

@@ -18,7 +18,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.avaya.collaboration.util.logger.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,14 +38,14 @@ import com.google.gson.JsonObject;
 public class transaction extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-    private final Logger logger;   
+    //private final Logger loger;   
     /**
      * @see HttpServlet#HttpServlet()
      */
     public transaction() 
     {
         super();
-        logger = Logger.getLogger(getClass());
+        //loger = Logger.getLogger(getClass());
     }
 
 	/**
@@ -61,7 +60,7 @@ public class transaction extends HttpServlet
 	        String url = "jdbc:postgresql://10.0.0.12:5432/postgres";
 	        Properties props = new Properties();
 	        props.setProperty("user", "postgres");
-	        props.setProperty("password", "postgres");
+	        props.setProperty("password", "admin");
 //	        props.setProperty("ssl", "true");
 
 	        PrintWriter out = response.getWriter();
@@ -72,7 +71,7 @@ public class transaction extends HttpServlet
 	            Driver driver = (Driver) jdbcDriverClass.newInstance();
 	            DriverManager.registerDriver(driver);
 	        } catch (Exception e) {
-	        	logger.info("transaction: l-75 Error: "+e.getMessage());
+	        	//loger.info("transaction: l-75 Error: "+e.getMessage());
 	            e.printStackTrace();
 	            /*RESPUESSTA ERROR EN FORMATO JSON*/
 	            JsonObject error = new JsonObject();
@@ -85,10 +84,10 @@ public class transaction extends HttpServlet
 	        
 			try {
 	            conn = DriverManager.getConnection(url, props);
-	            logger.info("transaction l-82: Conexión realizada a BD");
+	            //loger.info("transaction l-82: Conexión realizada a BD");
 
 			}catch (SQLException ex) {
-				logger.info("transaction: l-85 Error: "+ex.getMessage());
+				//loger.info("transaction: l-85 Error: "+ex.getMessage());
 		    	out.println(ex.getMessage());
 		    	/*RESPUESSTA ERROR EN FORMATO JSON*/
 	            JsonObject error = new JsonObject();
@@ -124,7 +123,7 @@ public class transaction extends HttpServlet
 		            stmt.close();
 		            rs.close();
 		        } catch (SQLException ex) {
-		        	logger.info("transaction: l-112 Error: "+ex.getMessage());
+		        	//loger.info("transaction: l-112 Error: "+ex.getMessage());
 		        	/*RESPUESSTA ERROR EN FORMATO JSON*/
 		            JsonObject error = new JsonObject();
 		            error.addProperty("Status", "Error");
@@ -161,7 +160,7 @@ public class transaction extends HttpServlet
 		            stmt.close();
 		            rs.close();
 		        } catch (SQLException ex) {
-		        	logger.info("transaction: l-112 Error: "+ex.getMessage());
+		        	//loger.info("transaction: l-112 Error: "+ex.getMessage());
 		        	/*RESPUESSTA ERROR EN FORMATO JSON*/
 		            JsonObject error = new JsonObject();
 		            error.addProperty("Status", "Error");
@@ -197,7 +196,7 @@ public class transaction extends HttpServlet
 	            stmt.close();
 	            rs.close();
 	        } catch (SQLException ex) {
-	        	logger.info("transaction: l-112 Error: "+ex.getMessage());
+	        	//loger.info("transaction: l-112 Error: "+ex.getMessage());
 	        	/*RESPUESSTA ERROR EN FORMATO JSON*/
 	            JsonObject error = new JsonObject();
 	            error.addProperty("Status", "Error");
@@ -218,12 +217,12 @@ public class transaction extends HttpServlet
 //	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{		setAccessControlHeaders(response);
-			logger.info("Ingresando al método POST");
+			//loger.info("Ingresando al método POST");
 			String JDBC_DRIVER = "org.postgresql.Driver";
 	        String url = "jdbc:postgresql://10.0.0.12:5432/postgres";
 	        Properties props = new Properties();
 	        props.setProperty("user", "postgres");
-	        props.setProperty("password", "postgres");
+	        props.setProperty("password", "admin");
 	        
 	        Driver driver = null;
 	        Connection conn = null;
@@ -236,7 +235,7 @@ public class transaction extends HttpServlet
 	            driver = (Driver) jdbcDriverClass.newInstance();
 	            DriverManager.registerDriver(driver);
 	        } catch (Exception e) {
-	        	logger.info("transaction: l-145 Error: "+e.getMessage());
+	        	//loger.info("transaction: l-145 Error: "+e.getMessage());
 	        	/*RESPUESSTA ERROR EN FORMATO JSON*/
 	            JsonObject error = new JsonObject();
 	            error.addProperty("Status", "Error");
@@ -248,10 +247,10 @@ public class transaction extends HttpServlet
 	        /*CREANDO CONEXIÓN*/
 	        try {
 	            conn = DriverManager.getConnection(url, props);
-	            logger.info("transaction: l-151 Conexión a base de datos completada");
+	            //loger.info("transaction: l-151 Conexión a base de datos completada");
 	            System.out.println("Connected to the PostgreSQL server successfully.");
 	        } catch (SQLException e) {
-	        	logger.info("transaction: l-156 Error: "+e.getMessage());
+	        	//loger.info("transaction: l-156 Error: "+e.getMessage());
 	        	/*RESPUESSTA ERROR EN FORMATO JSON*/
 	            JsonObject error = new JsonObject();
 	            error.addProperty("Status", "Error");
@@ -266,7 +265,7 @@ public class transaction extends HttpServlet
 	        Gson gson = new Gson();
 	        transactionBean myBean = gson.fromJson(reader, transactionBean.class);
             try (Statement stmt = conn.createStatement();) {
-            	logger.info("transaction: l-164 Creando Statement");
+            	//loger.info("transaction: l-164 Creando Statement");
                 /*ASIGNANDO VALORES INPUT A VARIABLES LOCALES*/
                 int transid = myBean.transid;
                 String amount = myBean.amount;
@@ -275,7 +274,7 @@ public class transaction extends HttpServlet
                 String merchantname = myBean.merchantname;
                 
                 
-                logger.info("transaction: l-173 Datos: insert into transaction (transid, amount ,accountnum,transdate, merchantname) values (" + transid + ", '" + amount + "' ," + accountnum + ",'" + transdate + "', '" + merchantname + "' )");
+                //loger.info("transaction: l-173 Datos: insert into transaction (transid, amount ,accountnum,transdate, merchantname) values (" + transid + ", '" + amount + "' ," + accountnum + ",'" + transdate + "', '" + merchantname + "' )");
                 /*STATEMENT*/
                 int affectedRows = stmt.executeUpdate("insert into transaction (transid, amount ,accountnum,transdate, merchantname) values (" + transid + ", '" + amount + "' ," + accountnum + ",'" + transdate + "', '" + merchantname + "' )");
                 if (affectedRows > 0) {
@@ -285,7 +284,7 @@ public class transaction extends HttpServlet
                             id = rs.getLong(1);
                         }
                     } catch (SQLException ex) {
-                    	logger.info("transaction: l-183 Error: "+ex.getMessage());
+                    	//loger.info("transaction: l-183 Error: "+ex.getMessage());
                     	/*RESPUESSTA ERROR EN FORMATO JSON*/
                         JsonObject error = new JsonObject();
                         error.addProperty("Status", "Error");
@@ -294,7 +293,7 @@ public class transaction extends HttpServlet
                         response.setContentType("application/json");
                         response.setCharacterEncoding("UTF-8");
                     }
-                    logger.info("Numero de columnas insertadas: "+affectedRows);
+                    //loger.info("Numero de columnas insertadas: "+affectedRows);
                     /*RESPUESSTA OK EN FORMATO JSON*/
                     JsonObject ok = new JsonObject();
                     ok.addProperty("Status", "Ok");
@@ -306,7 +305,7 @@ public class transaction extends HttpServlet
 
                 conn.close();
             } catch (SQLException ex) {
-            	logger.info("transaction: l-193 Error: "+ex.getMessage());
+            	//loger.info("transaction: l-193 Error: "+ex.getMessage());
             	/*RESPUESSTA ERROR EN FORMATO JSON*/
                 JsonObject error = new JsonObject();
                 error.addProperty("Status", "Error");
@@ -321,12 +320,12 @@ public class transaction extends HttpServlet
 	}
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		setAccessControlHeaders(response);
-		logger.info("Ingresando al método PUT");
+		//loger.info("Ingresando al método PUT");
 		String JDBC_DRIVER = "org.postgresql.Driver";
         String url = "jdbc:postgresql://10.0.0.12:5432/postgres";
         Properties props = new Properties();
         props.setProperty("user", "postgres");
-        props.setProperty("password", "postgres");
+        props.setProperty("password", "admin");
         
         Driver driver = null;
         Connection conn = null;
@@ -340,7 +339,7 @@ public class transaction extends HttpServlet
             driver = (Driver) jdbcDriverClass.newInstance();
             DriverManager.registerDriver(driver);
         } catch (Exception e) {
-        	logger.info("transaction: l-220 Error: "+e.getMessage());
+        	//loger.info("transaction: l-220 Error: "+e.getMessage());
             e.printStackTrace();
             /*RESPUESSTA ERROR EN FORMATO JSON*/
             JsonObject error = new JsonObject();
@@ -352,9 +351,9 @@ public class transaction extends HttpServlet
         }
         try {
             conn = DriverManager.getConnection(url, props);
-            logger.info("transaction: l-227 Conexión a base de datos completada");
+            //loger.info("transaction: l-227 Conexión a base de datos completada");
         } catch (SQLException e) {
-        	logger.info("transaction: l-230 Error: "+e.getMessage());
+        	//loger.info("transaction: l-230 Error: "+e.getMessage());
         	/*RESPUESSTA ERROR EN FORMATO JSON*/
             JsonObject error = new JsonObject();
             error.addProperty("Status", "Error");
@@ -365,7 +364,7 @@ public class transaction extends HttpServlet
         }
         
         try (Statement stmt = conn.createStatement();) {
-        	logger.info("MyServlet: l-251 Creando Statement");
+        	//loger.info("MyServlet: l-251 Creando Statement");
         	/* OBTENIENDO JSON*/
             BufferedReader reader = request.getReader();
             Gson gson = new Gson();
@@ -386,7 +385,7 @@ public class transaction extends HttpServlet
                     + "' WHERE transid = " + transid + ";");
             if (affectedRows > 0) {
                 // get the ID back
-                logger.info("Numero de columnas insertadas: "+affectedRows);
+                //loger.info("Numero de columnas insertadas: "+affectedRows);
                 /*RESPUESSTA OK EN FORMATO JSON*/
                 JsonObject ok = new JsonObject();
                 ok.addProperty("Status", "Ok");
@@ -405,7 +404,7 @@ public class transaction extends HttpServlet
             }
             conn.close();
         } catch (Exception ex) {
-        	logger.info("MyServlet: l-285 Error: "+ex.getMessage());
+        	//loger.info("MyServlet: l-285 Error: "+ex.getMessage());
         	/*RESPUESSTA ERROR EN FORMATO JSON*/
             JsonObject error = new JsonObject();
             error.addProperty("Status", "Error");
@@ -421,12 +420,12 @@ public class transaction extends HttpServlet
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		setAccessControlHeaders(response);
-		logger.info("Ingresando al método DELETE");
+		//loger.info("Ingresando al método DELETE");
 		String JDBC_DRIVER = "org.postgresql.Driver";
         String url = "jdbc:postgresql://10.0.0.12:5432/postgres";
         Properties props = new Properties();
         props.setProperty("user", "postgres");
-        props.setProperty("password", "postgres");
+        props.setProperty("password", "admin");
         
         Driver driver = null;
         Connection conn = null;
@@ -440,7 +439,7 @@ public class transaction extends HttpServlet
             driver = (Driver) jdbcDriverClass.newInstance();
             DriverManager.registerDriver(driver);
         } catch (Exception e) {
-        	logger.info("transaction: l-302 Error: "+e.getMessage());
+        	//loger.info("transaction: l-302 Error: "+e.getMessage());
             e.printStackTrace();
             /*RESPUESSTA ERROR EN FORMATO JSON*/
             JsonObject error = new JsonObject();
@@ -453,9 +452,9 @@ public class transaction extends HttpServlet
         }
         try {
             conn = DriverManager.getConnection(url, props);
-            logger.info("transaction: l-309 Conexión a base de datos completada");
+            //loger.info("transaction: l-309 Conexión a base de datos completada");
         } catch (SQLException e) {
-        	logger.info("transaction: l-313 Error: "+e.getMessage());
+        	//loger.info("transaction: l-313 Error: "+e.getMessage());
         	/*RESPUESSTA ERROR EN FORMATO JSON*/
             JsonObject error = new JsonObject();
             error.addProperty("Status", "Error");
@@ -467,7 +466,7 @@ public class transaction extends HttpServlet
         /* OBTENIENDO JSON*/
         
         try (Statement stmt = conn.createStatement();) {
-        	logger.info("transaction: l-323 Creando Statement");
+        	//loger.info("transaction: l-323 Creando Statement");
         	BufferedReader reader = request.getReader();
             Gson gson = new Gson();
             transactionBean myBean = gson.fromJson(reader, transactionBean.class);
@@ -478,7 +477,7 @@ public class transaction extends HttpServlet
                                                         "	WHERE transid = "+transid+";");
             if (affectedRows > 0) {
                 // get the ID back
-                logger.info("Numero de columnas insertadas: "+affectedRows);
+                //loger.info("Numero de columnas insertadas: "+affectedRows);
                 /*RESPUESSTA OK EN FORMATO JSON*/
                 JsonObject ok = new JsonObject();
                 ok.addProperty("Status", "Ok");
@@ -497,7 +496,7 @@ public class transaction extends HttpServlet
             }
             conn.close();
         } catch (Exception ex) {
-        	logger.info("MyServlet: l-285 Error: "+ex.getMessage());
+        	//loger.info("MyServlet: l-285 Error: "+ex.getMessage());
         	/*RESPUESSTA ERROR EN FORMATO JSON*/
             JsonObject error = new JsonObject();
             error.addProperty("Status", "Error");
